@@ -2,6 +2,8 @@ from os import makedirs, path
 
 from appdirs import user_config_dir
 
+import asyncio
+
 from telegram_send import configure, send
 
 config_dir = user_config_dir('ntfy', 'dschep')
@@ -15,4 +17,4 @@ def notify(title, message, retcode=None):
             makedirs(config_dir)
         print("Follow the instructions to configure the Telegram backend.\n")
         configure(config_file)
-    send(messages=[message], conf=config_file)
+    asyncio.run(send(messages=[message], conf=config_file))
